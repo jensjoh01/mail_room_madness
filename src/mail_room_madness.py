@@ -1,6 +1,9 @@
 """."""
 
+import sys
+from tabulate import tabulate
 donors = {}
+
 
 def get_user_response(prompt):
     """Display prompt and returns user response lowercased."""
@@ -35,11 +38,8 @@ def create_thank_you():
     donors[name][1] += 1
     #print("Thank you " + name + " for your very generous donation of $ " + amount)
     print(donors)
-    # main()
+    main()
 
-create_thank_you()
-
-from tabulate import tabulate
 
 
 def create_report(donors):
@@ -52,5 +52,21 @@ def create_report(donors):
         donors_and_value_list.append(temp)
     print('')
     print(tabulate(donors_and_value_list, headers=['Total', '# of Donations', 'Avg Donation','Name']))
+    main()
 
-create_report(donors)
+def main():
+    """Ask the user for desired action and begin that action."""
+    choice = get_user_response("Thank you or Print Report? (stop to quit)")
+
+    # reprompt until a valid response is given
+    while (choice != "thank you" and choice != "print report" and choice != "quit"):
+        choice = get_user_response("Sorry, please type either \"Create thank you\", \"Print report\", or \"quit")
+
+    if choice == "thank you":
+        create_thank_you()
+    elif choice == "print report":
+        create_report(donors)
+    elif choice == "quit":
+        sys.exit(0)  # quit the program
+
+main()
