@@ -3,84 +3,65 @@ be pseudo code functions and a flow chart"""
 
 
 # Dictionary with donors and amounts they have donated
-donors = {donors name: amount donated}
-
-
-def get_user_input(prompt, validator=None):
-    """return the value input by a user prompted by `prompt`
-    optionally, validate the input with a function `validator` which must
-    take one argument, the input from the user and must return the input if
-    valid, and None if not valid
-    """
-    reply = None
-    while reply is None:
-        reply = ask_for_input(prompt)
-        if there_is_a_validator:
-            validate_the_reply
-    return reply
-
-
-def home_prompt():
-    answer = raw_input("Thank You or Create Report?")
-    return answer
-
-
-def thank_you_function():
-    """
-    """
-
-    name = prompt_for_name()
-
-    if name.lower() is 'list':
-        return list of donor names and reprompt for name of donor
-
-    else:
-        if !name in donor_dictionary.keys():
-            add name:[empty list] to donor_dictionary
-
-        amount = prompt_donation_amount()
-
-
-def prompt_for_amount():
-    """."""
-    ask for amount of donation
-    verify that it is a number
-    add value to donor in dictionary
-
-    send_email()
-
-def send_email():
-    """"."""
-    compose and print an email to send to donor
-
-
-def create_report()
-    """."""
-
-
-    # check to see if donor and value is in dict
-    #
+# initially empty
+donors = {}
 
 def main():
-    """
-    1. get user prompt
+    """Ask the user for desired action and begin that action."""
+    choice = get_user_prompt("Thank you or Print Report? (stop to quit)")
 
-    """
+    # reprompt until a valid response is given
+    while (choice != "thank you" and choice != "print report" and choice != "quit"):
+        choice = get_user_prompt("Sorry, please type either "Create thank you", "Print report", or "quit")
 
-    prompt = 'Send a Thank You or Create a Report'
-    get_user_input(prompt)
-
-    if get_user_input == 'Thank You':
-
-        thank_you_function()
-
-    elif get_user_input == 'Create Report':
-
-        create_report_function()
-
-    else:
-        quit
+    if choice() == "thank you":
+        create_thank_you()
+    elif choice == "print report":
+        create_report()
+    elif choice == "quit"
+        sys.exit(0) # quit the program
 
 
+def get_user_prompt(prompt):
+    """Display prompt and returns user reponse lowercased."""
+    response = raw_input(prompt)
+    return response.lower()
 
 
+def create_thank_you()
+    """Create a thank you letter to specific donor with amount."""
+    name = "" # priming the while loop
+    while name == "":
+        response = get_user_prompt("Enter donor's full name, or list to see all donors")
+        if response.lower() == "list":
+            for (name : donors.keys()):
+                print(name)
+        elif response.lower() == "quit":
+            main()
+        else: # a name has been given
+            name = response.lower()
+
+    if name not in donors.keys():
+        donors[name] = []
+
+    amount = 0
+    while amount < 1:
+        response = input("Enter donation amount (at least 1)")
+        if response.lower == "quit"
+            main() # return to main prompt
+        else
+            amount = int(response)
+
+    donors[name].append(amount)
+    print formatted("Thank you " + name + " for your very generous donation of $ " + amount)
+    main() # to return to original prompt
+
+
+def create_report():
+    """Print a formatted report of all donors, sorted by total amount."""
+    For each donor in donors:
+        add up total donations for total
+        calculate average donations amount
+    sort donors based on total donation amount
+    print the formatted report in order
+    main() # to return to original prompt
