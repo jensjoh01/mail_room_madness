@@ -8,7 +8,6 @@ donors = {donors name: amount donated}
 
 def get_user_input(prompt, validator=None):
     """return the value input by a user prompted by `prompt`
-
     optionally, validate the input with a function `validator` which must
     take one argument, the input from the user and must return the input if
     valid, and None if not valid
