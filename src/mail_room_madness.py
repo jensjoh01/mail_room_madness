@@ -1,7 +1,7 @@
 """Module for creating a dictionary of donors and print a list of donors."""
 
 import sys
-# from tabulate import tabulate
+from tabulate import tabulate
 donors = {}
 
 
@@ -28,10 +28,11 @@ def create_thank_you():  # pragma: no cover
     """Create a thank you letter to specific donor with amount."""
     name = ""
     while name == "":
-        name = get_user_response("Enter donor's full name, or list to see all donors. 'q' to quit ")
+        name = get_user_response("Enter donor's full name, or 'list' to see all donors. 'q' to quit: ")
         if name == "list":
             for name in donors.keys():
                 print(name)
+            name = ""
         elif name == "q":
             main()
 
@@ -40,14 +41,14 @@ def create_thank_you():  # pragma: no cover
 
     amount = 0
     while amount < 1:
-        response = input("Enter donation amount in dollars (at least 1) ")
+        response = input("Enter donation amount in dollars (at least 1): ")
         if response.lower == "quit":
             main()
         else:
-            amount = int(response)
+            amount = float(response)
 
     update_donor(name, amount)
-    print("Thank you {name} for your very generous donation of ${amount}!".format(name=name.capitalize(), amount=amount))
+    print("Thank you {name} for your very generous donation of ${amount:.2f}!".format(name=name.capitalize(), amount=amount))
     main()
 
 
@@ -86,4 +87,8 @@ def main():  # pragma: no cover
 
 
 if __name__ == '__main__':  # pragma: no cover
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print('\nThank You')
+        sys.exit()
